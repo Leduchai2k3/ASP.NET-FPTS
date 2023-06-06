@@ -1,0 +1,326 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+select,
+textarea {
+  background-color: transparent;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  background-color: rgb(255, 255, 255);
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.header {
+  max-width: 100%;
+  height: 40px;
+  width: 100vw;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 100;
+}
+.header .header_left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.header .header_left .logo {
+  font-size: 26px;
+  font-weight: 700;
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header .header_left .logo .logoez {
+  color: black;
+}
+.header .header_left .logo .logotrade {
+  color: blue;
+}
+
+.header_left_list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+.header_left_list .header_left-item {
+  padding: 5px 17px;
+  border-right: 1px solid #ccc;
+  position: relative;
+  z-index: 100;
+}
+.header_left_list .header_left-item span {
+  transition: all;
+  white-space: nowrap;
+  padding: 0 0 0px;
+  font-size: 12px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.05s ease;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.header_left_list .header_left-item span:hover {
+  color: blue;
+  border-bottom: 2px solid blue;
+  padding: 0 0 6px;
+}
+.header_left_list .header_left-item:hover div {
+  display: block;
+}
+.header_left_list .header_left-item div {
+  position: absolute;
+  display: none;
+  left: 0px;
+  top: 33px;
+}
+.header_left_list .header_left-item div a {
+  display: flex;
+  background-color: aliceblue;
+  font-size: 12px;
+  line-height: 40px;
+  padding: 0 17px;
+  white-space: nowrap;
+  cursor: pointer;
+  border-bottom: 1px solid gray;
+}
+.header_left_list .header_left-item div a:hover {
+  color: blue;
+}
+.header_left_list .header_left-item .first {
+  transform: translateX(16px);
+}
+.header_left_list .triangle {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 14px solid blue;
+  border-right: 14px solid transparent;
+  top: 0px;
+}
+
+.header_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.header_right div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header_right div .dropdown-menu {
+  position: relative;
+  right: 0px;
+}
+
+.container {
+  min-width: 100vw;
+  padding: 0px;
+}
+
+.tickerboard {
+  background-color: #000000;
+  color: white;
+  border-bottom: 1px solid #ffffff;
+  z-index: 90;
+}
+
+.tickerboard-headert {
+  padding-top: 18px;
+  max-height: 28px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.tickerboard-headert p {
+  display: flex;
+  justify-content: center;
+  width: 220px;
+  height: 100%;
+  font-size: 13px;
+  padding-top: 2px;
+  padding-bottom: 4px;
+  padding-right: 5px;
+  border: 1px solid transparent;
+  border-bottom: 0px solid transparent;
+  cursor: pointer;
+}
+.tickerboard-headert p:hover {
+  border: 1px solid white;
+  border-bottom: 0px solid transparent;
+}
+
+.tickerboard-headerb {
+  border-bottom: 1px solid gray;
+  margin-top: -5px;
+  height: 28px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tickerboard-headerb .left {
+  display: flex;
+  align-items: center;
+}
+.tickerboard-headerb .left input {
+  margin-left: 5px;
+  font-size: 12px;
+  padding: 3px 5px;
+  color: white;
+  height: 23px;
+  width: 180px;
+  border: 1px solid gray;
+}
+.tickerboard-headerb .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.tickerboard-headerb .right span {
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+.tickerboard-headerb .right span:hover svg path {
+  fill: aqua;
+}
+
+.tickerboard-list {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+.tickerboard-list .tickerboard-item {
+  position: relative;
+  padding: 5px 10px;
+  background-color: rgb(94, 94, 94);
+  border-radius: 2px 2px 0px 0px;
+}
+.tickerboard-list .tickerboard-item button {
+  cursor: pointer;
+  transition: all;
+  white-space: nowrap;
+  color: white;
+  padding: 0 0 0px;
+  font-size: 13px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.tickerboard-list .tickerboard-item button:hover {
+  color: rgb(255, 255, 255);
+}
+.tickerboard-list .tickerboard-item:hover div {
+  display: block;
+}
+.tickerboard-list .tickerboard-item div {
+  position: absolute;
+  display: none;
+  left: 0px;
+  top: 102%;
+}
+.tickerboard-list .tickerboard-item div a {
+  display: flex;
+  background-color: rgb(0, 0, 0);
+  font-size: 12px;
+  padding: 8px 12px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.tickerboard-list .tickerboard-item div a:hover {
+  background-color: gray;
+}
+
+.tickerboard-table {
+  width: 100vw;
+  border-collapse: collapse;
+  width: 100%;
+}
+.tickerboard-table thead, .tickerboard-table tbody {
+  border: 1px solid white;
+  width: auto;
+}
+.tickerboard-table thead tr, .tickerboard-table tbody tr {
+  width: auto;
+  background-color: none;
+}
+.tickerboard-table thead tr th, .tickerboard-table thead tr td, .tickerboard-table tbody tr th, .tickerboard-table tbody tr td {
+  width: auto;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-right: 1px solid white;
+  background-color: none;
+}
+.tickerboard-table thead tr .border_bottom, .tickerboard-table tbody tr .border_bottom {
+  border-bottom: 1px solid white;
+}
+
+.fix-width {
+  width: 54px !important;
+  white-space: wrap !important;
+}
+
+.footer-table table {
+  border: none;
+}
+.footer-table th {
+  background-color: transparent;
+  text-align: left;
+  padding: 5px !important;
+  padding-right: 5px;
+  border: none;
+}
+.footer-table td {
+  padding: 5px !important;
+  font-weight: 700;
+  padding-left: 5px;
+  border: none;
+  text-align: right;
+  background-color: transparent;
+}
+
+/*# sourceMappingURL=styles.css.map */

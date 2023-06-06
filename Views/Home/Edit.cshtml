@@ -1,0 +1,22 @@
+@model App.Models.DatLenhs.DatLenh
+
+<form method="post" asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="MaCK">Mã CK:</label>
+        <input type="text" asp-for="MaCK" value="@Model.MaCK" />
+    </div>
+
+    <div>
+        <label asp-for="KhoiLuong">Khối lượng:</label>
+        <input type="text" asp-for="KhoiLuong" value="@Model.KhoiLuong" />
+    </div>
+
+    <div>
+        <label asp-for="Gia">Giá:</label>
+        <input type="text" asp-for="Gia" value="@Model.Gia" />
+    </div>
+
+    <button type="submit">Lưu</button>
+</form>

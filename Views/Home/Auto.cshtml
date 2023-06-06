@@ -1,0 +1,117 @@
+<h1>AutoComplete</h1>
+<hr>
+<link rel="stylesheet"
+  href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<style>
+  .highlight {
+    color: red;
+  }
+
+  .green {
+    color: green;
+  }
+</style>
+<input id="tags">
+<span id="selected-data"></span>
+<script type="text/javascript">
+  var availableTags = [
+   {
+        Code: "BST",
+        Exchange: 2,
+        ScripName: "Công ty Cổ phần Sách và Thiết bị Bình Thuận",
+        Basic_Price: 20400,
+        Ceiling_Price: 22400,
+        Floor_Price: 18400,
+        Stock_Type2: 2,
+        ScripNameEN: "Binh Thuan Book And Equipment Joint Stock Company",
+        ID: "450"
+    },
+    {
+        Code: "BTS",
+        Exchange: 2,
+        ScripName: "Công ty Cổ phần Xi măng Vicem Bút Sơn",
+        Basic_Price: 5900,
+        Ceiling_Price: 6400,
+        Floor_Price: 5400,
+        Stock_Type2: 2,
+        ScripNameEN: "Vicem But Son Cement Joint Stock Company",
+        ID: "17"
+    },
+    {
+        Code: "BTW",
+        Exchange: 2,
+        ScripName: "Công ty Cổ phần Cấp nước Bến Thành",
+        Basic_Price: 27100,
+        Ceiling_Price: 29800,
+        Floor_Price: 24400,
+        Stock_Type2: 2,
+        ScripNameEN: "Ben Thanh Water Supply Joint Stock Company",
+        ID: "670"
+    },
+  ];
+
+  function highlightMatch(label, term) {
+    var regex = new RegExp("^" + term, "ig");
+    var highlightedLabel = label.replace(regex, function(match) {
+      return "<span class='highlight'>" + match + "</span>";
+    });
+    return highlightedLabel;
+  }
+
+  $("#tags").autocomplete({
+    source: function(request, response) {
+      var term = request.term.toLowerCase();
+      var results = [];
+      $.each(availableTags, function(index, item) {
+        var label = item.Code + "-" + item.Exchange + "-" + item.ScripName;
+        if (label.toLowerCase().indexOf(term) === 0) {
+          var highlightedLabel = highlightMatch(label, term);
+          results.push({
+            label: highlightedLabel,
+            value: item.Code
+          });
+        }
+      });
+      response(results);
+    },
+    select: function(event, ui) {
+      var selectedValue = ui.item.value;
+
+      var selectedData = availableTags.find(function(item) {
+        return item.Code === selectedValue;
+      });
+
+      var selectedDataHtml = "<span>Code: " + selectedData.Code + "</span><br>" +
+        "<span>Exchange: " + selectedData.Exchange + "</span><br>" +
+        "<span>ScripName: " + selectedData.ScripName + "</span><br>" +
+        "<span>Basic_Price: " + selectedData.Basic_Price + "</span><br>" +
+        "<span>Ceiling Price: ";
+
+      if (selectedData.Ceiling_Price > 100) {
+        selectedDataHtml += "<span class='green'>" + (selectedData.Ceiling_Price / 1000).toFixed(1) + "</span>";
+      } else {
+        selectedDataHtml += (selectedData.Ceiling_Price / 1000).toFixed(1);
+      }
+
+      selectedDataHtml += "</span><br>" +
+        "<span>Floor_Price: " + selectedData.Floor_Price + "</span><br>" +
+        "<span>Stock_Type2: " + selectedData.Stock_Type2 + "</span><br>" +
+        "<span>ScripNameEN: " + selectedData.ScripNameEN + "</span><br>" +
+        "<span>ID: " + selectedData.ID + "</span><br>";
+
+      $("#selected-data").html(selectedDataHtml);
+      event.preventDefault();
+    },
+    open: function(event, ui) {
+      $(".ui-autocomplete .ui-menu-item").each(function() {
+        var $item = $(this);
+        var originalLabel = $item.text();
+        var term = $("#tags").val().toLowerCase();
+        var highlightedLabel = highlightMatch(originalLabel, term);
+        $item.html(highlightedLabel);
+      });
+    }
+  });
+</script>

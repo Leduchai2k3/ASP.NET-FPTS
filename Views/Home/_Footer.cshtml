@@ -1,0 +1,1037 @@
+@model List<App.Models.DatLenhs.DatLenh>
+@* @model App.Models.DatLenhs.DatLenh *@
+@{
+  var editFormId = "edit-form";
+}
+<link rel="stylesheet"
+  href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<div>
+  <style>
+    .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100vw;
+            background-color: white;
+            height: 40vh;
+        }
+
+    .handle {
+            position: relative;
+            top: -7px;
+            width: 100%;
+            height:8px;
+            opacity: 0;
+            cursor: ns-resize;
+        }
+
+        .handle:hover {
+            background-color: #555;
+        }
+         .footer-content {
+            height: 100%;
+            width: 100%;
+        }
+        .footer-left-button{
+          width: 35vw;
+          height: 25px;
+          opacity: 0.5;
+        }
+        .footer-button-icon{
+          width: 30vw;
+          height:25px;
+          opacity: 0.5;
+        }
+        .footer-button {
+          position: absolute;
+          left: 0;
+          top: 0;
+            display: flex;
+            justify-content: center;
+            height: 25px;
+            margin: auto;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+    ul {
+      top: 10px;
+          position: absolute;
+          display: flex;
+          gap: 20px;
+          right: 30px;
+            list-style-type: none;
+        }
+    li {
+          cursor: pointer;
+            font-weight: 600;
+            font: 13px sans-serif;
+            padding-bottom: 3px;
+            border-bottom: 2px solid transparent;
+          &:hover {
+            border-bottom: 2px solid #2800d9;
+            color: #2800d9;
+          }
+        }
+        .footer-content-set {
+          margin-top: 50px;
+          display: flex;
+          gap: 30px;
+          justify-content: center;
+          .content-left{
+            width: 336px;
+            border: 1px solid #B3B3B3;
+            .span{
+              padding-left: 5px;
+            text-transform: uppercase;
+              height: 25px;
+              width: 100%;
+              background-color: #B3B3B3;
+              line-height: 25px;
+              color: #2800d9;
+            }
+          }
+          .content-right{
+            width: 722px;
+            padding: 10px; 
+            height: max-content;
+            background-color: #DFEEFF;
+            border: 1px solid #D4D4D4;
+
+          }
+        }
+        td{
+    @* background-color: transparent; *@
+        }
+        .content-right-t{
+          display: flex;
+          justify-content: space-between;
+    @* align-items: center; *@
+          .left{ 
+            display: flex;
+            gap: 0px;
+            .button{
+              width: 60px;
+              height: 30px;
+              border: 1px solid #B3B3B3;
+              background-color: #2800d9;
+              color: white;
+              font-weight: 600;
+              font-size: 13px;
+              cursor: pointer;
+            }
+            .buttondis{
+              background-color: #B3B3B3;
+              width: 60px;
+              height: 30px;
+              border: 1px solid #B3B3B3;
+              color: white;
+              font-weight: 600;
+              font-size: 13px;
+              cursor: pointer;
+            }
+          }
+          .checkbox{
+            display: flex;
+            gap: 10px;
+           margin-top: 5px;
+          }
+          .center{
+            display: flex;
+            gap: 5px;
+            .button{
+              width: 140px;
+              height: 30px;
+              background-color: #B3B3B3;
+              border: 1px solid #B3B3B3;
+              color: white;
+              font-weight: 600;
+              font-size: 13px;
+              cursor: pointer;
+                display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+            .buttondis{
+              border: 1px solid #B3B3B3;
+              background-color: #2800d9;
+              width: 140px;
+              height: 30px;
+              color: white;
+              font-weight: 600;
+              font-size: 13px;
+              cursor: pointer;
+                display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+            .span{
+              background: white;
+              width: 30px;
+              border: #B3B3B3 1px solid;
+              height: 30px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+        .content-right-b{
+          display: flex;
+          align-items: end;
+          gap: 5px;
+          padding-right: 10px;
+          .table-footer{
+            border: none;
+            background-color: transparent !important;
+
+          }
+          .ths{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-left:25px !important;
+            padding-right:20px !important;
+
+          }
+          .th,.td{
+            padding: 0px;
+            border: none;
+            background-color: transparent !important;
+            .input{
+              width: 140px;
+              outline: #B3B3B3;
+              border: #B3B3B3 1px solid;
+              background-color: white;
+              padding: 5px 8px;
+              font-size: 14px;
+              border-radius: 5px;
+              margin-top:3px; 
+            }
+          }
+          .button{
+            height: 30px;
+            padding: 0px 30px;
+            color: white;
+            background-color: #2800d9;
+            white-space: nowrap;
+            border-radius: 5px;
+          }
+          .buttondis{
+            height: 30px;
+            padding: 0px 30px;
+            color: white;
+            background-color: #B3B3B3;
+            white-space: nowrap;
+            border-radius: 5px;
+          }
+        } 
+        .footer-data-head{
+          margin-top: 0px;
+          height: 35px;
+          background-color: #DEDEDE;
+          transform: translateY(-8px);
+          display: flex;
+          align-items: center;
+          padding: 0px 10px;
+          .close{
+            color: #d71920;
+            cursor: pointer;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+          .center{
+            margin: auto;
+            color: #235aaf;
+          }
+        }
+        .footer-data-center{
+          display: flex;
+          padding: 0px 30px;
+          justify-content: space-between;
+          align-items: center;
+          .left{
+            display: flex;
+            flex-direction: column;
+            font-size: 13px;
+            gap: 5px;
+          }
+          .right{
+            display: flex;
+            align-items: end;
+            font-size: 13px;
+            gap: 5px;
+            .dropdown{
+              box-shadow: none;
+              .btn{
+              margin-top: 5px;
+              font-size: 13px;
+              border: 1px solid #dadada;
+              display: flex;
+              gap:40px; 
+              align-items: center;
+              justify-content: center;
+              &:focus, &:active:focus {
+                  box-shadow: 0px -1px 17px 0px rgba(0,96,255,0.3);
+                  border: 1px solid #6EA6FF;
+              }
+              }
+              .dropdown-item{
+                font-size: 13px;
+              }
+            }
+            .label{
+              font-size: 12px;
+              font-weight: 600;
+            }
+            .capnhat{
+              background-color: #235aaf;
+              height: 33px;
+              padding: 0px 30px;
+              border-radius: 5px;
+              color: white;
+            }
+          }
+        }
+
+        .footer-data-bottom{
+          background-color: transparent;
+          margin-top: 10px;
+          padding: 0px 30px;
+          font-size: 13px;
+          .table{
+            .th,.td{
+              border: 1px solid #ddd;
+            }
+            .th{
+              background-color: #F3F3F3;
+              cursor: pointer;
+            }
+            .td{
+              background-color: #FBF6D5;
+            }
+          }
+        }
+    .hidden{
+          display: none !important;
+        }
+    .block{
+          display: block !important;
+        }
+        .bg{
+          position: absolute;
+          top: 0px;
+          left:0px;
+          right:0px;
+        bottom: 0px;
+        background-color: #000000;
+        opacity: 0.3;
+        }
+        .footer-edit{
+          position: absolute;
+          top: 50px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50%;
+          background-color: #ffffff;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+            display: none;
+          .head{
+            width: 100%;
+            padding: 10px ;
+            background-color: #2800d9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color:white;
+
+          }
+          .edit-content{
+            .td,.th{
+              background-color: transparent;
+              padding: 0px;
+              width: max-content;
+              padding: 5px;
+              .input{
+                width: 100%;
+              }
+            }
+          }
+
+        }
+        .p{
+          display: none;
+        }
+        .text-mini{
+          font-size: 12px;
+        }
+        .highlight {
+          color: red;
+          }
+
+        .green {
+          color: green;
+        }
+        .ui-widget-content{
+          width: 450px;
+          height: 15%;
+          overflow-y: scroll;
+          .ui-menu-item{
+            padding: 3px;
+            border: none;
+            &:hover{
+              color: black;
+              border: none;
+              padding: none;
+              background-color: rgba(83, 83, 255, 0.5);
+            }
+          }
+        }
+        .ceil{
+          color: #ef3eff;
+        }
+        .floor{
+          color: #ff3e3e;
+        }
+        .basic{
+          color: #00b8ff;
+        }
+        </style>
+</div>
+<div>
+  <div></div>
+  <div id="footer" class="footer footer-default ">
+    <div id="handle" class="handle"></div>
+    <div class="footer-content">
+      <div class="footer-button" id="footerButton">
+        <div class="footer-left-button"></div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="30"
+            class="footer-button-icon" height="30" viewBox="0 0 24 24"><path
+              d="M0 0h24v24H0z" fill="none" /><path d="M7 10l5 5 5-5z" /></svg>
+        </div>
+      </div>
+      <ul>
+        <li class="toggletab">Lệnh chờ khớp</li>
+        <li>KQ Khớp lệnh trong phiên</li>
+        <li>Lệnh trong ngày</li>
+      </ul>
+      <div class="footer-content-set">
+        <div class="content-left">
+          <p class="span">SỐ DƯ TIỀN</p>
+          <table class="footer-table">
+            <tr>
+              <th>Số dư tiền mặt:</th>
+              <td>5,234,123</td>
+            </tr>
+            <tr>
+              <th>Tiền ứng trước:</th>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>Tiền cho FPTS vay:</th>
+              <td>2,123</td>
+            </tr>
+            <tr>
+              <th>Số dư có thể giao dịch:</th>
+              <td>5,123,123</td>
+            </tr>
+
+          </table>
+        </div>
+
+        <div class="content-right">
+          <div class="content-right-t">
+            <div class="left">
+              <button class="button">MUA</button>
+              <button class="buttondis">BÁN</button>
+            </div>
+            <div class="center">
+              <button class="buttondis">TIỀN MẶT</button>
+              <button class="button">KÍ QUỸ</button>
+              <p class="span"><svg width="18" height="12" viewBox="0 0 18 12"
+                  fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 12V10H18V12H0ZM0 7V5H18V7H0ZM0 2V0H18V2H0Z"
+                    fill="black" />
+                </svg>
+              </p>
+            </div>
+            <div class="checkbox">
+                <label for="">Ghi lệnh chờ gửi: </label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                </div>
+            </div>
+          </div>
+          <form method="post" asp-action="Index">
+          <div class="content-right-b">
+            <table class="table-footer">
+              <thead>
+                <tr class="tr">
+                  <th class="th"><span class="text-mini" id="selected-data-code"><span></span></span></th>
+                  <th class="th">
+                    <span class="text-mini">Tối đa: </span>
+                    <span class="text-mini" >0</span> 
+                  </th>
+                  <th class="th ths">
+                    <span class="text-mini" id="selected-data"><span class='ceil'>0</span></span>
+                    <span class="text-mini" id="selected-data1"><span class='floor'>0</span></span>
+                    <span class="text-mini" id="selected-data2"><span class='basic'>0</span></span>
+                    <span class="text-mini">x1000</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tr">
+                    @* <td class="td"><input type="text" class="input form-control" placeholder="Mã CK" id="MaCK" name="MaCK" ></td> *@
+                    <td class="td"><input id="tags" type="text" class="input form-control" placeholder="Mã CK" id="MaCK" name="MaCK"></td>
+                <td class="td"><input type="text" class="input form-control" placeholder="Khối lượng" id="KhoiLuong" name="KhoiLuong" ></td>
+                <td class="td"><input type="text" class="input form-control" placeholder="Giá" id="Gia" name="Gia" ></td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="button" type="submit">GỬI</button>
+            <button class="buttondis">LÀM LẠI</button>
+          </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+ <div id="footer footer-data" class="footer footer-data hidden">
+  <div id="handle" class="handle"></div>
+  <div class="footer-content">
+
+    <div class="footer-data-head">
+      <div class="close">[ESC] Thoát</div>
+      <div class="center">LỆNH CHỜ KHỚP</div>
+      <ul>
+        <li>Lệnh chờ khớp</li>
+        <li>KQ Khớp lệnh trong phiên</li>
+        <li>Lệnh trong ngày</li>
+        <li class="close">X</li>
+      </ul>
+    </div>
+    <div class="footer-data-center">
+      <div class="left">
+        <span>Lưu ý: Khi Quý khách sửa lệnh đối với chứng khoán sàn HOSE, hệ
+          thống sẽ thực hiện lần lượt:</span>
+        <span> (1) Hủy phần chưa khớp của lệnh gốc</span>
+        <span> (2) Tạo lệnh mới tương ứng theo yêu cầu sau khi bước (1) hoàn tất</span>
+      </div>
+      <div class="right">
+        <div class>
+          <label for class="label">Sàn GD</label>
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Tất cả
+            </button>
+            <div class="dropdown-menu">
+              <span class="dropdown-item">Action</span>
+              <span class="dropdown-item">Another action</span>
+              <span class="dropdown-item">Something else here</span>
+            </div>
+          </div>
+        </div>
+        <div class>
+          <label for class="label">Mã CK</label>
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Tất cả
+            </button>
+            <div class="dropdown-menu">
+              <span class="dropdown-item">ActionAction</span>
+              <span class="dropdown-item">Another action</span>
+              <span class="dropdown-item">Something else here</span>
+            </div>
+          </div>
+        </div>
+        <div class>
+          <label for class="label">Sắp xếp theo</label>
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Thời gian
+            </button>
+            <div class="dropdown-menu">
+              <span class="dropdown-item">ActionAction</span>
+              <span class="dropdown-item">Another action</span>
+              <span class="dropdown-item">Something else here</span>
+            </div>
+          </div>
+        </div>
+        <div class>
+          <label for class="label">T.tự sắp xếp</label>
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Tăng dần
+            </button>
+            <div class="dropdown-menu">
+              <span class="dropdown-item">ActionAction</span>
+              <span class="dropdown-item">Another action</span>
+              <span class="dropdown-item">Something else here</span>
+            </div>
+          </div>
+        </div>
+        <button class="capnhat">CẬP NHẬT</button>
+      </div>
+    </div>
+    <div class="footer-data-bottom">
+      <table class="table">
+        <tr class="tr">
+          <th class="th">Sửa</th>
+          <th class="th">Hủy</th>
+          <th class="th">Mã CK</th>
+          <th class="th">Lệnh đặt</th>
+          <th class="th">Loại GD</th>
+          <th class="th">KL chờ</th>
+          <th class="th">KL đặt</th>
+          <th class="th">Giá</th>
+          <th class="th">Tình trạng lệnh</th>
+          <th class="th">Diễn giải</th>
+          <th class="th">Sàn GD</th>
+          <th class="th">SHL Tại sàn</th>
+          <th class="th">Thời gian đặt lệnh</th>
+        </tr>
+          @foreach (var datLenh in Model)
+          {
+                                                                                                                                                                                                                                                                    <tr class="tr">
+                                                                                                                                                                                                                                                                       <td class="td">
+                                                                                                                                                                                                                                                    <button class="bg-edit" onclick="editItem('@datLenh.Id', '@datLenh.MaCK', '@datLenh.KhoiLuong', '@datLenh.Gia')">Sửa</button>
+                                                                                                                                                                                                                                                </td>
+                                                                                                                                                                                                                                                                        <td class="td">
+                                                                                                                                                                                                                                                                            <form class="delete-form" method="post" asp-action="Delete">
+                                                                                                                                                                                                                                                                                <input type="hidden" name="action" value="delete" />
+                                                                                                                                                                                                                                                                                <input type="hidden" name="id" value="@datLenh.Id" />
+                                                                                                                                                                                                                                                                                <button type="button" class="delete-button">Xóa</button>
+                                                                                                                                                                                                                                                                            </form>
+                                                                                                                                                                                                                                                                        </td>
+                                                                                                                                                                                                                                                                        <td class="td">@datLenh.MaCK</td>
+                                                                                                                                                                                                                                                                        <td class="td">Mua</td>
+                                                                                                                                                                                                                                                                        <td class="td">Binh Thuong</td>
+                                                                                                                                                                                                                                                                        <td class="td">@datLenh.KhoiLuong</td>
+                                                                                                                                                                                                                                                                        <td class="td">@datLenh.KhoiLuong</td>
+                                                                                                                                                                                                                                                                        <td class="td">@datLenh.Gia</td>
+                                                                                                                                                                                                                                                                        <td class="td">Cho Gui</td>
+                                                                                                                                                                                                                                                                        <td class="td">Lenh Dat Thanh Cong</td>
+                                                                                                                                                                                                                                                                        <td class="td">HNX.LISTED</td>
+                                                                                                                                                                                                                                                                        <td class="td"></td>
+                                                                                                                                                                                                                                                                        <td class="td">31/05/2023 14:54:59</td>
+                                                                                                                                                                                                                                                                    </tr>
+          }
+
+      </table>
+    </div>
+    <div>
+    </div>
+    <div class="bg hidden"></div>
+
+      <form method="post" asp-action="Edit">
+        <input type="hidden" name="id" id="editFieldId" />
+        <div class="footer-edit hidden" id="@editFormId">
+            <div class="head">MÀN HÌNH SỬA LỆNH</div>
+            <div class="edit-content">
+                <table>
+                    <tr>
+                        <th class="th">Mã CK</th>
+                        <th class="th">Khối Lượng</th>
+                        <th class="th">Giá</th>
+                    </tr>
+                      <tr>
+                          <td class="td"><input type="text" class="input" name="MaCK" id="MaCKK" value="ABC"/></td>
+                          <td class="td"><input type="text" class="input" name="KhoiLuong" id="KhoiLuongK" /></td>
+                          <td class="td"><input type="text" class="input" name="Gia" id="GiaK" /></td>
+                      </tr>
+                </table>
+            </div>
+            <div class="foot">
+                <button class="button" onclick="updateItem()">Sửa</button>
+            </div>
+        </div>
+    </form>
+    </div>
+
+</div>
+  </div>
+<script type="text/javascript">
+  var availableTags = [
+    {
+        Code: "BDB",
+        Exchange: 2,
+        ScripName: "Công ty Cổ phần Sách và Thiết bị Bình Định",
+        Basic_Price: 8500,
+        Ceiling_Price: 9300,
+        Floor_Price: 7700,
+        Stock_Type2: 2,
+        ScripNameEN: "Binh Dinh Book and Equipment Joint Stock Company ",
+        ID: "647"
+    },
+    {
+        Code: "BED",
+        Exchange: 2,
+        ScripName: "Công ty Cổ phần Sách và Thiết bị Trường học Đà Nẵng",
+        Basic_Price: 38600,
+        Ceiling_Price: 42400,
+        Floor_Price: 34800,
+        Stock_Type2: 2,
+        ScripNameEN: "Danang Book and Educational Equipment Joint Stock Company",
+        ID: "566"
+    },
+    {
+        Code: "BID121027",
+        Exchange: 2,
+        ScripName: "Trái phiếu Ngân hàng Thương mại cổ phần Đầu tư và Phát triển Việt Nam",
+        Basic_Price: 100000,
+        Ceiling_Price: 0,
+        Floor_Price: 0,
+        Stock_Type2: 1,
+        ScripNameEN: "Bond of Joint Stock Commercial Bank for Investment and Development of Vietnam (BIDV)",
+        ID: "2930"
+    },
+    {
+        Code: "BID121028",
+        Exchange: 2,
+        ScripName: "Trái phiếu Ngân hàng Thương mại cổ phần Đầu tư và Phát triển Việt Nam",
+        Basic_Price: 100000,
+        Ceiling_Price: 0,
+        Floor_Price: 0,
+        Stock_Type2: 1,
+        ScripNameEN: "Bond of Joint Stock Commercial Bank for Investment and Development of Vietnam (BIDV)",
+        ID: "2931"
+    },
+    {
+        Code: "BID122003",
+        Exchange: 2,
+        ScripName: "Trái phiếu Ngân hàng TMCP Đầu tư và Phát triển Việt Nam",
+        Basic_Price: 90000,
+        Ceiling_Price: 0,
+        Floor_Price: 0,
+        Stock_Type2: 1,
+        ScripNameEN: "Bond of Joint Stock Commercial Bank for Investment and Development of Vietnam (BIDV)",
+        ID: "2932"
+    },
+    {
+        Code: "BID122004",
+        Exchange: 2,
+        ScripName: "Trái phiếu Ngân hàng TMCP Đầu tư và Phát triển Việt Nam",
+        Basic_Price: 100000,
+        Ceiling_Price: 0,
+        Floor_Price: 0,
+        Stock_Type2: 1,
+        ScripNameEN: "Bond of Joint Stock Commercial Bank for Investment and Development of Vietnam (BIDV)",
+        ID: "2933"
+    },
+    {
+        Code: "BID122005",
+        Exchange: 2,
+        ScripName: "Trái phiếu Ngân hàng TMCP Đầu tư và Phát triển Việt Nam",
+        Basic_Price: 100000,
+        Ceiling_Price: 0,
+        Floor_Price: 0,
+        Stock_Type2: 1,
+        ScripNameEN: "Bonds of Joint Stock Commercial Bank for Investment and Development of Vietnam (BIDV)",
+        ID: "2934"
+    },
+    {
+        Code: "BKC",
+        Exchange: 2,
+        ScripName: "Công ty Cổ phần Khoáng sản Bắc Kạn ",
+        Basic_Price: 6100,
+        Ceiling_Price: 6700,
+        Floor_Price: 5500,
+        Stock_Type2: 2,
+        ScripNameEN: "Bac Kan Mineral Joint Stock Corporation",
+        ID: "531"
+    },
+    {
+        Code: "BLF",
+        Exchange: 2,
+        ScripName: "Công ty Cổ phần Thủy sản Bạc Liêu",
+        Basic_Price: 3200,
+        Ceiling_Price: 3500,
+        Floor_Price: 2900,
+        Stock_Type2: 2,
+        ScripNameEN: "Bac Lieu Fisheries Joint Stock Company",
+        ID: "334"
+    },
+    {
+        Code: "BNA",
+        Exchange: 2,
+        ScripName: "Công ty Cổ phần Đầu tư sản xuất Bảo Ngọc ",
+        Basic_Price: 10900,
+        Ceiling_Price: 11900,
+        Floor_Price: 9900,
+        Stock_Type2: 2,
+        ScripNameEN: "Bao Ngoc Investment Production Corporation",
+        ID: "2050"
+    },
+    {
+        Code: "BPC",
+        Exchange: 2,
+        ScripName: "Công ty Cổ phần Vicem Bao bì Bỉm sơn",
+        Basic_Price: 9200,
+        Ceiling_Price: 10100,
+        Floor_Price: 8300,
+        Stock_Type2: 2,
+        ScripNameEN: "Vicem Packaging Bim Son Joint Stock Company",
+        ID: "14"
+    },
+    {
+        Code: "BSC",
+        Exchange: 2,
+        ScripName: "Công ty Cổ phần Dịch vụ Bến Thành",
+        Basic_Price: 13000,
+        Ceiling_Price: 14300,
+        Floor_Price: 11700,
+        Stock_Type2: 2,
+        ScripNameEN: "Ben Thanh Service Joint Stock Company",
+        ID: "948"
+    },
+
+  ];
+
+  function highlightMatch(label, term) {
+    var regex = new RegExp("^" + term, "ig");
+    var highlightedLabel = label.replace(regex, function(match) {
+      return "<span class='highlight'>" + match + "</span>";
+    });
+    return highlightedLabel;
+  }
+
+  $("#tags").autocomplete({
+    source: function(request, response) {
+      var term = request.term.toLowerCase();
+      var results = [];
+      $.each(availableTags, function(index, item) {
+        var label = item.Code + "-" + item.Exchange + "-" + item.ScripName;
+        if (label.toLowerCase().indexOf(term) === 0) {
+          var highlightedLabel = highlightMatch(label, term);
+          results.push({
+            label: highlightedLabel,
+            value: item.Code
+          });
+        }
+      });
+      response(results);
+    },
+    select: function(event, ui) {
+      var selectedValue = ui.item.value;
+
+      var selectedData = availableTags.find(function(item) {
+        return item.Code === selectedValue;
+      });
+
+  @* var selectedDataHtml = "<span>" + selectedData.Code + "</span><br>" *@
+  @* "<span>" + selectedData.Exchange + "</span><br>" +
+        "<span>" + selectedData.ScripName + "</span><br>" +
+        "<span>" + selectedData.Basic_Price + "</span><br>" +
+        "<span>";
+
+      if (selectedData.Ceiling_Price > 100) {
+        selectedDataHtml += "<span class='green'>" + selectedData.Ceiling_Price + "</span>";
+      } else {
+        selectedDataHtml += selectedData.Ceiling_Price;
+      }
+
+      selectedDataHtml += "</span><br>" +
+        "<span>" + selectedData.Floor_Price + "</span><br>" +
+        "<span>" + selectedData.Stock_Type2 + "</span><br>" +
+        "<span>" + selectedData.ScripNameEN + "</span><br>" *@
+  @* "<span>" + selectedData.ID + "</span><br>"; *@
+
+      $("#selected-data-code").html("<span>" + selectedData.Code + "</span><br>");
+      $("#selected-data1").html("<span class='ceil'>" + (selectedData.Ceiling_Price / 1000).toFixed(1) + "</span><br>");
+      $("#selected-data").html("<span class='floor'>" + (selectedData.Floor_Price / 1000).toFixed(1) + "</span><br>");
+      $("#selected-data2").html("<span class='basic'>" + (selectedData.Basic_Price / 1000).toFixed(1) + "</span><br>");
+      event.preventDefault();
+    },
+    open: function(event, ui) {
+      $(".ui-autocomplete .ui-menu-item").each(function() {
+        var $item = $(this);
+        var originalLabel = $item.text();
+        var term = $("#tags").val().toLowerCase();
+        var highlightedLabel = highlightMatch(originalLabel, term);
+        $item.html(highlightedLabel);
+      });
+    }
+  });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var footerdf = $(".footer-default");
+        var footerData = $(".footer-data");
+
+        $(document).on('click', '.delete-button', function () {
+            var form = $(this).closest('.delete-form');
+            var id = form.find('input[name="id"]').val();
+
+            // Hiển thị cảnh báo xác nhận
+            if (confirm('Bạn có chắc chắn muốn xóa?')) {
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function () {
+                        alert('Xóa thành công.');
+
+
+                            location.reload();
+                    },
+                    error: function () {
+                        alert('Đã xảy ra lỗi khi xóa.');
+                    }
+                });
+            }
+        });
+    });
+</script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  $(document).ready(function () {
+
+  var footer = $(".footer");
+  var handle = $("#handle");
+  var footerHeight = footer.height();
+  var isResizing = false;
+  var isButtonClicked = false;
+  var startY, startHeight;
+  var button = $("#footerButton");
+  var topOffset = 40;
+  var minHeight = 50;
+  var isFooterMinimized = false;
+
+   handle.mousedown(function (event) {
+    isResizing = true;
+    startY = event.clientY;
+    startHeight = footer.height();
+    footer.css("transition", "none");
+  });
+  button.mousedown(function () {
+    isButtonClicked = false;
+  });
+  $(document).mouseup(function () {
+      if (!isResizing) return;
+
+      footerHeight = footer.height();
+      footer.css("transition", "");
+      isResizing = false;
+      isButtonClicked = false;
+    });
+
+    $(document).mousemove(function (event) {
+      if (!isResizing || isButtonClicked) return;
+
+      var diffY = startY - event.clientY;
+      var newHeight = startHeight + diffY;
+
+      var windowHeight = $(window).height();
+      var maxHeight = windowHeight - topOffset;
+      newHeight = Math.max(minHeight, Math.min(newHeight, maxHeight));
+
+      footer.css("height", newHeight);
+
+      var contentHeight = windowHeight - newHeight;
+      $(".content").css("height", contentHeight);
+
+      updateButtonContent(newHeight, maxHeight);
+    });
+
+    button.click(function () {
+      var windowHeight = $(window).height();
+      var maxHeight = windowHeight * 0.4;
+
+      if (isFooterMinimized) {
+        footer.animate({ height: maxHeight }, 300);
+        $(".content").animate({ height: windowHeight - (maxHeight + topOffset) }, 300);
+        updateButtonContent(maxHeight, maxHeight);
+        isFooterMinimized = false;
+      } else {
+        if (footerHeight > minHeight) {
+          footer.animate({ height: minHeight }, 300);
+          $(".content").animate({ height: windowHeight - (minHeight + topOffset) }, 300);
+          updateButtonContent(minHeight, maxHeight);
+          isFooterMinimized = true;
+        }
+      }
+    });
+
+
+  function updateButtonContent(currentHeight, maxHeight) {
+  var buttonContent = "";
+
+  if (currentHeight === minHeight) {
+    buttonContent = '<div class="footer-left-button"></div><svg xmlns="http://www.w3.org/2000/svg" width="30" class="footer-button-icon" height="30" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M7 14l5-5 5 5z"/></svg>';
+  } else if (currentHeight > minHeight && currentHeight === maxHeight/2) {
+    buttonContent = '<div class="footer-left-button"></div><svg xmlns="http://www.w3.org/2000/svg" width="30" class="footer-button-icon" height="30" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M7 10l5 5 5-5z"/></svg>';
+    // Add your mousemove logic here
+    // For example, trigger a mousemove event on the button element
+    button.trigger("mousemove");
+
+  } else if (currentHeight > minHeight) {
+    buttonContent = '<div class="footer-left-button"></div><svg xmlns="http://www.w3.org/2000/svg" width="30" class="footer-button-icon" height="30" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M7 10l5 5 5-5z"/></svg>';
+  }
+
+  button.html(buttonContent);
+}
+});
+</script>
+
+        <script>
+        $(document).ready(function () {
+        var footerdf = $(".footer-default");
+        var toggleTab = $(".toggletab");
+        var footerData = $(".footer-data");
+        var close = $(".close");
+        toggleTab.on("click", function () {
+          footerData.addClass("block");
+          footerData.removeClass("hidden");
+        });
+        close.on("click", function () {
+          footerData.addClass("hidden");
+          footerData.removeClass("block");
+        });
+        });
+        </script>
+
+         <script>
+        $(document).ready(function () {
+        var bg = $(".bg");
+        var edit = $(".bg-edit");
+        var fedit = $(".footer-edit");
+        edit.on("click", function () {
+          fedit.toggleClass("block");
+          bg.toggleClass("block");
+        });
+        bg.on("click", function () {
+          fedit.toggleClass("block");
+          bg.toggleClass("block");
+        });
+        });
+        </script>
+
+<script>
+
+    function editItem(id, maCK, khoiLuong, gia) {
+        document.getElementById('editFieldId').value = id;
+        document.getElementById('MaCKK').value = maCK;
+        document.getElementById('KhoiLuongK').value = khoiLuong;
+        document.getElementById('GiaK').value = gia;
+        console.log(id, maCK, khoiLuong, gia);
+    }
+</script>
+
+</div>
+
+
+
